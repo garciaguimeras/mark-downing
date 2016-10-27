@@ -1,0 +1,28 @@
+{
+  "name": "mark-downing",
+  "version": "1.0.0",
+  "description": "Just another Markdown parser",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garciaguimeras/mark-downing.git"
+  },
+  "keywords": [
+    "markdown",
+    "md"
+  ],
+  "author": "Noel",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/garciaguimeras/mark-downing/issues"
+  },
+  "homepage": "https://github.com/garciaguimeras/mark-downing#readme",
+  "dependencies": {
+    "mocha": "^3.1.2",
+    "string": "^3.3.3"
+  }
+}
