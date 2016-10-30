@@ -1,4 +1,16 @@
 # mark-downing
 
 Just another Markdown parser
-(and a first project using node.js)
+(and my first project using node.js)
+
+## Executing the app
+
+Write
+```
+npm install
+```
+to download dependencies, and
+```
+npm start <filename.md>
+```
+to execute the app.

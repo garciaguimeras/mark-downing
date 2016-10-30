@@ -4,11 +4,13 @@
 
 var md = require('./md.js');
 var mdDocumentParser = require('./parsers/document_parser.js');
+var mdRichTextParser = require('./parsers/richtext_parser.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
 var MdFactory = md.MdFactory;
 var DocumentParser = mdDocumentParser.DocumentParser;
+var RichTextParser = mdRichTextParser.RichTextParser;
 
 
 // Parser object
@@ -44,6 +46,9 @@ Parser.prototype = {
             switch (md.type) {
                 case MdType.Document:
                     p = new DocumentParser(md);
+                    break;
+                case MdType.RichText:
+                    p = new RichTextParser(md);
                     break;
             }
 

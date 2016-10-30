@@ -1,8 +1,8 @@
 const fr = require('./app/filereader.js');
 const mdParser = require('./app/parser.js');
+const mdTraverser = require('./app/traverser.js');
 
 var args = process.argv;
-var parser = new mdParser.Parser();
 
 if (args.length < 3) {
     console.log('Need a markdown filename');
@@ -12,6 +12,16 @@ if (args.length < 3) {
 var filename = args[2];
 fr.readFile(filename, (lines) => {
 
-    parser.parse(lines);
+    var parser = new mdParser.Parser();
+    var mdDocument = parser.parse(lines);
+    var traverser = new mdTraverser.MdTraverser(mdDocument);
+    traverser.execute((md) => {
+
+        console.log(`>>>> ${md.type}`);
+        md.content.forEach((line) => {
+            console.log(line);
+        });
+
+    });
 
 }); 
