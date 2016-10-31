@@ -6,7 +6,6 @@ var md = require('./../md.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
-var MdFactory = md.MdFactory;
 
 var DocumentParser = function(md) {
     this.position = 0;
@@ -40,16 +39,16 @@ DocumentParser.prototype = {
     },
 
     parse: function() {
-        mdArr = [];
+        var mdArr = [];
         this.position = 0;
         while (this.position < this.lines.length) {
             var slice = this.processText();
 
             var md = null;
             if (!this.isCode)
-                md = MdFactory.newRichText;
+                md = new Md(MdType.RichText);
             else
-                md = MdFactory.newCode;
+                md = new Md(MdType.Code);
             md.content = slice;
             mdArr[mdArr.length] = md;
 

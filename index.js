@@ -14,6 +14,7 @@ fr.readFile(filename, (lines) => {
 
     var parser = new mdParser.Parser();
     var mdDocument = parser.parse(lines);
+
     var traverser = new mdTraverser.MdTraverser(mdDocument);
     traverser.execute((md) => {
 

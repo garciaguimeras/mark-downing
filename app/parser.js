@@ -5,12 +5,13 @@
 var md = require('./md.js');
 var mdDocumentParser = require('./parsers/document_parser.js');
 var mdRichTextParser = require('./parsers/richtext_parser.js');
+var mdParagraphParser = require('./parsers/paragraph_parser.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
-var MdFactory = md.MdFactory;
 var DocumentParser = mdDocumentParser.DocumentParser;
 var RichTextParser = mdRichTextParser.RichTextParser;
+var ParagraphParser = mdParagraphParser.ParagraphParser;
 
 
 // Parser object
@@ -50,6 +51,9 @@ Parser.prototype = {
                 case MdType.RichText:
                     p = new RichTextParser(md);
                     break;
+                case MdType.Paragraph:
+                    p = new ParagraphParser(md);
+                    break;
             }
 
             // If p == null the md node is in a final state
@@ -70,7 +74,7 @@ Parser.prototype = {
 
     parse: function(lines) {
         this.lines = this.trim(lines);
-        this.mdDocument = MdFactory.newDocument;
+        this.mdDocument = new Md(MdType.Document);
         this.mdDocument.content = this.lines;
 
         var newNodes = 1;

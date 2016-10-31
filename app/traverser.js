@@ -6,7 +6,6 @@ var md = require('./md.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
-var MdFactory = md.MdFactory;
 
 var MdTraverser = function(mdDocument) {
     this.mdDocument = mdDocument;

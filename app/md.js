@@ -46,22 +46,9 @@ Md.prototype = {
 };
 
 
-// MdFactory object
-
-var MdFactory = function(type) {
-    return new Md(type);
-};
-
-MdFactory.newDocument = MdFactory(MdType.Document);
-MdFactory.newRichText = MdFactory(MdType.RichText);
-MdFactory.newCode = MdFactory(MdType.Code);
-MdFactory.newParagraph = MdFactory(MdType.Paragraph);
-
-
 // Module exports
 
 module.exports = {
     MdType: MdType,
     Md: Md,
-    MdFactory: MdFactory,
 };
