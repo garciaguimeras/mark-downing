@@ -6,12 +6,14 @@ var md = require('./md.js');
 var mdDocumentParser = require('./parsers/document_parser.js');
 var mdRichTextParser = require('./parsers/richtext_parser.js');
 var mdParagraphParser = require('./parsers/paragraph_parser.js');
+var mdLineParser = require('./parsers/line_parser.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
 var DocumentParser = mdDocumentParser.DocumentParser;
 var RichTextParser = mdRichTextParser.RichTextParser;
 var ParagraphParser = mdParagraphParser.ParagraphParser;
+var LineParser = mdLineParser.LineParser;
 
 
 // Parser object
@@ -53,6 +55,9 @@ Parser.prototype = {
                     break;
                 case MdType.Paragraph:
                     p = new ParagraphParser(md);
+                    break;
+                case MdType.Line:
+                    p = new LineParser(md);
                     break;
             }
 

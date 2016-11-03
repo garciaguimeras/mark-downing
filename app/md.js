@@ -5,6 +5,8 @@
 // Md object
 
 const MdType = {
+    None: 0,
+
     Document: 1,
     RichText: 2,
     Code: 3,
@@ -12,12 +14,14 @@ const MdType = {
     Paragraph: 10,
     Line: 11,
 
-    Header1: 20,
-    Header2: 21,
-    Header3: 22,
-    Header4: 23,
-    Header5: 24,
-    Header6: 25,
+    Title1: 20,
+    Title2: 21,
+    Title3: 22,
+    Title4: 23,
+    Title5: 24,
+    Title6: 25,
+
+    PlainText: 100,
 };
 
 var Md = function(type) {
