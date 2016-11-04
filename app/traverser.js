@@ -18,22 +18,24 @@ MdTraverser.prototype = {
 
         if (md.children.length == 0) {
             if (mdConverter)
-                mdConverter.leaf(md);
+                return mdConverter.leaf(md);
         }
         else {
+            var result = '';
             if (mdConverter)
-                mdConverter.begin(md);
+                result += mdConverter.begin(md);
             md.children.forEach((child) => {
-                this.traverse(child, mdConverterFactory);
+                result += this.traverse(child, mdConverterFactory);
             });
             if (mdConverter)
-                mdConverter.end(md);
+                result += mdConverter.end(md);
+            return result;
         }
     },
 
     execute: function(mdConverterFactory) {
         if (mdConverterFactory != null) {
-            this.traverse(this.mdDocument, mdConverterFactory);
+            return this.traverse(this.mdDocument, mdConverterFactory);
         }
     },
 

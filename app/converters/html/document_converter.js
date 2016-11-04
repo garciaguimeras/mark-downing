@@ -20,11 +20,11 @@ DocumentConverter.prototype = {
     htmlEnd: '</body></html>',
 
     begin: function(md) {
-        console.log(this.htmlStart);
+        return this.htmlStart + '\n';
     },
 
     end: function(md) {
-        console.log(this.htmlEnd);
+        return this.htmlEnd + '\n';
     },
 
     leaf: function(md) {},
@@ -42,11 +42,11 @@ ParagraphConverter.prototype = {
     htmlEnd: '</p>',
 
     begin: function(md) {
-        console.log(this.htmlStart);
+        return this.htmlStart + '\n';
     },
 
     end: function(md) {
-        console.log(this.htmlEnd);
+        return this.htmlEnd + '\n';
     },
 
     leaf: function(md) {},
@@ -64,13 +64,13 @@ CodeConverter.prototype = {
     end: function(md) {},
 
     leaf: function(md) {
-        var html = '<pre><code>';
+        var html = '<pre><code>\n';
         for (var i = 0; i < md.content.length; i++) {
             html += S(md.content[i]).escapeHTML().s;
             html += '\n';
         }
-        html += '</code></pre>';
-        console.log(html);
+        html += '</code></pre>\n';
+        return html;
     },
 
 };
@@ -83,10 +83,12 @@ LineConverter.prototype = {
 
     htmlEnd: '<br/>',
 
-    begin: function(md) {},
+    begin: function(md) {
+        return '';
+    },
 
     end: function(md) {
-        // console.log(this.htmlEnd);
+        return '';
     },
 
     leaf: function(md) {},
@@ -108,7 +110,8 @@ PlainTextConverter.prototype = {
         for (var i = 0; i < md.content.length; i++) {
             html += S(md.content[i]).escapeHTML().s;
         }
-        console.log(html);
+        html += '\n';
+        return html;
     },
 
 };
@@ -130,8 +133,8 @@ TitleConverter.prototype = {
         for (var i = 0; i < md.content.length; i++) {
             html += S(md.content[i]).escapeHTML().s;
         }
-        html += `</h${this.level}>`;
-        console.log(html);
+        html += `</h${this.level}>\n`;
+        return html;
     },
 
 };

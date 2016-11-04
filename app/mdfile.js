@@ -1,5 +1,5 @@
 /*
- * MdFile module
+ * FileReader module
  */
 
 const fs = require('fs');
@@ -17,6 +17,12 @@ module.exports = {
             if (fnResult != null)
                 fnResult(lines);
         });
-    }
+    },
+
+    writeFile: function(filename, data) {
+        fs.writeFile(filename, data, 'utf8', (err) => {
+            if (err) throw err;
+        });
+    },
 
 };

@@ -1,4 +1,4 @@
-const fr = require('./app/filereader.js');
+const mdFile = require('./app/mdfile.js');
 const mdParser = require('./app/parser.js');
 const mdTraverser = require('./app/traverser.js');
 const converterFactory = require('./app/converters/converter_factory.js');
@@ -31,12 +31,13 @@ if (param1 == 'credits') {
     process.exit(0);
 }
 
-fr.readFile(param1, (lines) => {
+mdFile.readFile(param1, (lines) => {
 
     var parser = new mdParser.Parser();
     var mdDocument = parser.parse(lines);
 
     var traverser = new mdTraverser.MdTraverser(mdDocument);
-    traverser.execute(converterFactory.create('html'));
+    var htmlData = traverser.execute(converterFactory.create('html'));
+    mdFile.writeFile(param1 + '.html', htmlData)
 
 }); 

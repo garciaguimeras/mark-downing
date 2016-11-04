@@ -7,10 +7,11 @@ var createConverterFor = function(md) {
     return {
 
         leaf: function(md) {
-            console.log(`>>>> ${md.type}`);
-            md.content.forEach((line) => {
-                console.log(line);
-            });
+            var txt = `>>>> ${md.type}\n`;
+            for (var i = 0; i < md.content.length; i++) {
+                txt += md.content[i] + '\n';
+            }
+            return txt;
         },
 
         begin: function(md) {},
