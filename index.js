@@ -37,6 +37,6 @@ fr.readFile(param1, (lines) => {
     var mdDocument = parser.parse(lines);
 
     var traverser = new mdTraverser.MdTraverser(mdDocument);
-    traverser.execute(converterFactory.create('console'));
+    traverser.execute(converterFactory.create('html'));
 
 }); 

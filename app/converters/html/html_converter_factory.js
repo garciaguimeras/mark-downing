@@ -3,58 +3,48 @@
  */
 
 var md = require('./../../md.js');
+var documentConverterModule = require('./document_converter.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
 
-var HtmlConverter = function() {};
-
-HtmlConverter.prototype = {
-
-    begin: function(md) {
-
-    },
-
-    end: function(md) {
-
-    },
-
-    leaf: function(md) {
-
-    },
-
-};
-
+var DocumentConverter = documentConverterModule.DocumentConverter;
+var ParagraphConverter = documentConverterModule.ParagraphConverter;
+var CodeConverter = documentConverterModule.CodeConverter;
+var LineConverter = documentConverterModule.LineConverter;
+var PlainTextConverter = documentConverterModule.PlainTextConverter;
+var TitleConverter = documentConverterModule.TitleConverter;
 
 var createConverterFor = function(md) {
 
     switch(md.type) {
 
         case MdType.Document:
-            break;
+            return new DocumentConverter();
         case MdType.Paragraph:
-            break;
+            return new ParagraphConverter();
         case MdType.Code:
-            break;
+            return new CodeConverter();
         case MdType.Line:
-            break;
+            return new LineConverter();
         case MdType.Title1:
-            break;
+            return new TitleConverter(1);
         case MdType.Title2:
-            break;
+            return new TitleConverter(2);
         case MdType.Title3:
-            break;
+            return new TitleConverter(3);
         case MdType.Title4:
-            break;
+            return new TitleConverter(4);
         case MdType.Title5:
-            break;
+            return new TitleConverter(5);
         case MdType.Title6:
-            break;
+            return new TitleConverter(6);
         case MdType.PlainText:
-            break;
+            return new PlainTextConverter();
 
     }
 
+    return null;
 };
 
 

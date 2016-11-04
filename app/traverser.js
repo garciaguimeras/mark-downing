@@ -17,14 +17,17 @@ MdTraverser.prototype = {
         var mdConverter = mdConverterFactory.createConverterFor(md);
 
         if (md.children.length == 0) {
-            mdConverter.leaf(md);
+            if (mdConverter)
+                mdConverter.leaf(md);
         }
         else {
-            mdConverter.begin(md);
+            if (mdConverter)
+                mdConverter.begin(md);
             md.children.forEach((child) => {
                 this.traverse(child, mdConverterFactory);
             });
-            mdConverter.end(md);
+            if (mdConverter)
+                mdConverter.end(md);
         }
     },
 

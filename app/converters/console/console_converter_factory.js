@@ -5,6 +5,7 @@
 
 var createConverterFor = function(md) {
     return {
+
         leaf: function(md) {
             console.log(`>>>> ${md.type}`);
             md.content.forEach((line) => {
@@ -15,6 +16,7 @@ var createConverterFor = function(md) {
         begin: function(md) {},
 
         end: function(md) {},
+
     };
 };
 
