@@ -13,20 +13,24 @@ var MdTraverser = function(mdDocument) {
 
 MdTraverser.prototype = {
 
-    traverse: function(md, fn) {
+    traverse: function(md, mdConverterFactory) {
+        var mdConverter = mdConverterFactory.createConverterFor(md);
+
         if (md.children.length == 0) {
-            fn(md);
+            mdConverter.leaf(md);
         }
         else {
+            mdConverter.begin(md);
             md.children.forEach((child) => {
-                this.traverse(child, fn);
+                this.traverse(child, mdConverterFactory);
             });
+            mdConverter.end(md);
         }
     },
 
-    execute: function(fn) {
-        if (fn != null) {
-            this.traverse(this.mdDocument, fn);
+    execute: function(mdConverterFactory) {
+        if (mdConverterFactory != null) {
+            this.traverse(this.mdDocument, mdConverterFactory);
         }
     },
 
