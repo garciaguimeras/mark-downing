@@ -75,26 +75,6 @@ CodeConverter.prototype = {
 
 };
 
-// Line
-
-var LineConverter = function() {};
-
-LineConverter.prototype = {
-
-    htmlEnd: '<br/>',
-
-    begin: function(md) {
-        return '';
-    },
-
-    end: function(md) {
-        return '';
-    },
-
-    leaf: function(md) {},
-
-};
-
 // PlainText
 
 var PlainTextConverter = function() {};
@@ -124,18 +104,15 @@ var TitleConverter = function(level) {
 
 TitleConverter.prototype = {
 
-    begin: function(md) {},
-
-    end: function(md) {},
-
-    leaf: function(md) {
-        var html = `<h${this.level}>`;
-        for (var i = 0; i < md.content.length; i++) {
-            html += S(md.content[i]).escapeHTML().s;
-        }
-        html += `</h${this.level}>\n`;
-        return html;
+    begin: function(md) {
+        return `<h${this.level}>`;
     },
+
+    end: function(md) {
+        return `</h${this.level}>\n`;
+    },
+
+    leaf: function(md) {},
 
 };
 
@@ -146,7 +123,6 @@ module.exports = {
     DocumentConverter: DocumentConverter,
     ParagraphConverter: ParagraphConverter,
     CodeConverter: CodeConverter,
-    LineConverter: LineConverter,
     PlainTextConverter: PlainTextConverter,
     TitleConverter: TitleConverter,
 };

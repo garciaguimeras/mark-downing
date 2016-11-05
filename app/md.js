@@ -9,7 +9,6 @@ const MdType = {
 
     Document: 1,
     RichText: 2,
-    Code: 3,
 
     Paragraph: 10,
     Line: 11,
@@ -21,7 +20,11 @@ const MdType = {
     Title5: 24,
     Title6: 25,
 
-    PlainText: 100,
+    List: 30,
+    ListItem: 31,
+
+    PlainText: 200,
+    Code: 300,
 };
 
 var Md = function(type) {

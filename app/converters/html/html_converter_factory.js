@@ -25,8 +25,6 @@ var createConverterFor = function(md) {
             return new ParagraphConverter();
         case MdType.Code:
             return new CodeConverter();
-        case MdType.Line:
-            return new LineConverter();
         case MdType.Title1:
             return new TitleConverter(1);
         case MdType.Title2:

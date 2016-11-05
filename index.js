@@ -13,7 +13,7 @@ console.log('}');
 console.log('');
 
 if (args.length < 3) {
-    console.log('msg = { error: "Need a markdown filename" }');
+    console.log('error = { msg: "Need a markdown filename" }');
     console.log('');
     process.exit(0);
 }

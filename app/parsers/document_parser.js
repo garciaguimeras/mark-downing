@@ -10,7 +10,6 @@ var Md = md.Md;
 var DocumentParser = function(md) {
     this.position = 0;
     this.lines = md.content;
-    this.isCode = false;
 };
 
 DocumentParser.prototype = {
@@ -21,12 +20,42 @@ DocumentParser.prototype = {
         return false;
     },
 
-    processText: function() {
+    isTitleSeparator: function(txt) {
+        if (txt.startsWith('#'))
+            return true;
+        return false;
+    },
+
+    isSeparator: function(txt) {
+        return this.isCodeSeparator(txt) ||
+               this.isTitleSeparator(txt);
+    },
+
+    processRichText: function() {
         // pass empty lines
         while (this.position < this.lines.length && this.lines[this.position].trim() == '')
             this.position++;
 
-        // find next paragraph separator
+        // find next separator
+        var fPos = this.position;
+        while (fPos < this.lines.length && !this.isSeparator(this.lines[fPos]))
+            fPos++;
+
+        // slice the text
+        var slice = this.lines.slice(this.position, fPos);
+        this.position = fPos;
+
+        if (slice.length == 0)
+            return null;
+
+        var md = new Md(MdType.RichText);
+        md.content = slice;
+        return md;
+    },
+
+    processCode: function() {
+        // find next separator
+        this.position++;
         var fPos = this.position;
         while (fPos < this.lines.length && !this.isCodeSeparator(this.lines[fPos]))
             fPos++;
@@ -35,24 +64,61 @@ DocumentParser.prototype = {
         var slice = this.lines.slice(this.position, fPos);
         this.position = fPos + 1;
 
-        return slice;
+        var md = new Md(MdType.Code);
+        md.content = slice;
+        return md;
+    },
+
+    processTitle: function() {
+        var md = null;
+        var line = this.lines[this.position];
+        this.position++;
+
+        if (line.startsWith('######')) {
+            md = new Md(MdType.Title6);
+            md.content = [ line.substring(6).trim() ];
+        }
+        else if (line.startsWith('#####')) {
+            md = new Md(MdType.Title5);
+            md.content = [ line.substring(5).trim() ];
+        }
+        else if (line.startsWith('####')) {
+            md = new Md(MdType.Title4);
+            md.content = [ line.substring(4).trim() ];
+        }
+        else if (line.startsWith('###')) {
+            md = new Md(MdType.Title3);
+            md.content = [ line.substring(3).trim() ];
+        }
+        else if (line.startsWith('##')) {
+            md = new Md(MdType.Title2);
+            md.content = [ line.substring(2).trim() ];
+        }
+        else {
+            md = new Md(MdType.Title1);
+            md.content = [ line.substring(1).trim() ];
+        }
+
+        return md;
     },
 
     parse: function() {
         var mdArr = [];
         this.position = 0;
         while (this.position < this.lines.length) {
-            var slice = this.processText();
+            var md = this.processRichText();
 
-            var md = null;
-            if (!this.isCode)
-                md = new Md(MdType.RichText);
-            else
-                md = new Md(MdType.Code);
-            md.content = slice;
-            mdArr[mdArr.length] = md;
+            if (md == null) {
+                // code
+                if (this.isCodeSeparator(this.lines[this.position]))
+                    md = this.processCode();
+                // title
+                else if (this.isTitleSeparator(this.lines[this.position]))
+                    md = this.processTitle();
+            }
 
-            this.isCode = !this.isCode;
+            if (md != null)
+                mdArr[mdArr.length] = md;
         }
         return mdArr;
     },
