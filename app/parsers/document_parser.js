@@ -26,9 +26,18 @@ DocumentParser.prototype = {
         return false;
     },
 
+    isListSeparator: function(txt) {
+        if (txt.trim().startsWith('* '))
+            return true;
+        if (txt.trim().startsWith('- '))
+            return true;
+        return false;
+    },
+
     isSeparator: function(txt) {
         return this.isCodeSeparator(txt) ||
-               this.isTitleSeparator(txt);
+               this.isTitleSeparator(txt) ||
+               this.isListSeparator(txt);
     },
 
     processRichText: function() {
@@ -102,19 +111,38 @@ DocumentParser.prototype = {
         return md;
     },
 
+    processList: function() {
+        // find next separator
+        var fPos = this.position;
+        while (fPos < this.lines.length && this.isListSeparator(this.lines[fPos]))
+            fPos++;
+
+        // slice the text
+        var slice = this.lines.slice(this.position, fPos);
+        this.position = fPos;
+
+        var md = new Md(MdType.UList);
+        md.content = slice;
+        return md;
+    },
+
     parse: function() {
         var mdArr = [];
         this.position = 0;
         while (this.position < this.lines.length) {
+            var line = this.lines[this.position];
             var md = this.processRichText();
 
             if (md == null) {
                 // code
-                if (this.isCodeSeparator(this.lines[this.position]))
+                if (this.isCodeSeparator(line))
                     md = this.processCode();
                 // title
-                else if (this.isTitleSeparator(this.lines[this.position]))
+                else if (this.isTitleSeparator(line))
                     md = this.processTitle();
+                // list
+                else if (this.isListSeparator(line))
+                    md = this.processList();
             }
 
             if (md != null)

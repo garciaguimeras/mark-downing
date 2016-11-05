@@ -14,6 +14,7 @@ var CodeConverter = documentConverterModule.CodeConverter;
 var LineConverter = documentConverterModule.LineConverter;
 var PlainTextConverter = documentConverterModule.PlainTextConverter;
 var TitleConverter = documentConverterModule.TitleConverter;
+var UListConverter = documentConverterModule.UListConverter;
 
 var createConverterFor = function(md) {
 
@@ -39,6 +40,8 @@ var createConverterFor = function(md) {
             return new TitleConverter(6);
         case MdType.PlainText:
             return new PlainTextConverter();
+        case MdType.UList:
+            return new UListConverter();
 
     }
 
