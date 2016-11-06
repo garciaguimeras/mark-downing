@@ -8,6 +8,8 @@ var mdRichTextParser = require('./parsers/richtext_parser.js');
 var mdParagraphParser = require('./parsers/paragraph_parser.js');
 var mdLineParser = require('./parsers/line_parser.js');
 var mdTitleParser = require('./parsers/title_parser.js');
+var mdListParser = require('./parsers/list_parser.js');
+var mdListItemParser = require('./parsers/listitem_parser.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
@@ -16,6 +18,8 @@ var RichTextParser = mdRichTextParser.RichTextParser;
 var ParagraphParser = mdParagraphParser.ParagraphParser;
 var LineParser = mdLineParser.LineParser;
 var TitleParser = mdTitleParser.TitleParser;
+var ListParser = mdListParser.ListParser;
+var ListItemParser = mdListItemParser.ListItemParser;
 
 
 // Parser object
@@ -68,6 +72,12 @@ Parser.prototype = {
                 case MdType.Title5:
                 case MdType.Title6:
                     p = new TitleParser(md);
+                    break;
+                case MdType.List:
+                    p = new ListParser(md);
+                    break;
+                case MdType.ListItem:
+                    p = new ListItemParser(md);
                     break;
             }
 

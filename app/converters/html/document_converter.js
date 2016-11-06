@@ -15,7 +15,8 @@ var DocumentConverter = function() {};
 
 DocumentConverter.prototype = {
 
-    htmlStart: '<html><head><title>Mark Downing</title></head><body>',
+    htmlStart: '<html><head><title>Mark Downing</title>' +
+               '</head><body>',
 
     htmlEnd: '</body></html>',
 
@@ -116,24 +117,39 @@ TitleConverter.prototype = {
 
 };
 
-// UList
+// List
 
-var UListConverter = function() {};
+var ListConverter = function() {};
 
-UListConverter.prototype = {
+ListConverter.prototype = {
 
-    begin: function(md) {},
-
-    end: function(md) {},
-
-    leaf: function(md) {
-        var html ='<ul>';
-        for (var i = 0; i < md.content.length; i++) {
-            html += '<li>' + S(md.content[i]).escapeHTML().s + '</li>';
-        }
-        html += '</ul>\n';
-        return html;
+    begin: function(md) {
+        return '<ul>\n';
     },
+
+    end: function(md) {
+        return '</ul>\n';
+    },
+
+    leaf: function(md) {},
+
+};
+
+// ListItem
+
+var ListItemConverter = function() {};
+
+ListItemConverter.prototype = {
+
+    begin: function(md) {
+        return '<li>\n';
+    },
+
+    end: function(md) {
+        return '</li>\n';
+    },
+
+    leaf: function(md) {},
 
 };
 
@@ -146,5 +162,6 @@ module.exports = {
     CodeConverter: CodeConverter,
     PlainTextConverter: PlainTextConverter,
     TitleConverter: TitleConverter,
-    UListConverter: UListConverter,
+    ListConverter: ListConverter,
+    ListItemConverter: ListItemConverter,
 };

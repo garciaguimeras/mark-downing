@@ -121,7 +121,7 @@ DocumentParser.prototype = {
         var slice = this.lines.slice(this.position, fPos);
         this.position = fPos;
 
-        var md = new Md(MdType.UList);
+        var md = new Md(MdType.List);
         md.content = slice;
         return md;
     },

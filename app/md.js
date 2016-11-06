@@ -20,8 +20,8 @@ const MdType = {
     Title5: 24,
     Title6: 25,
 
-    UList: 30,
-    UListItem: 31,
+    List: 30,
+    ListItem: 31,
 
     PlainText: 200,
     Code: 300,
