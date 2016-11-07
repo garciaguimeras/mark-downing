@@ -16,6 +16,7 @@ var PlainTextConverter = documentConverterModule.PlainTextConverter;
 var TitleConverter = documentConverterModule.TitleConverter;
 var ListConverter = documentConverterModule.ListConverter;
 var ListItemConverter = documentConverterModule.ListItemConverter;
+var BlockquoteConverter = documentConverterModule.BlockquoteConverter;
 
 var createConverterFor = function(md) {
 
@@ -45,6 +46,8 @@ var createConverterFor = function(md) {
             return new ListConverter();
         case MdType.ListItem:
             return new ListItemConverter();
+        case MdType.Blockquote:
+            return new BlockquoteConverter();
 
     }
 

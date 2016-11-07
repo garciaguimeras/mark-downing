@@ -153,6 +153,24 @@ ListItemConverter.prototype = {
 
 };
 
+// Blockquote
+
+var BlockquoteConverter = function() {};
+
+BlockquoteConverter.prototype = {
+
+    begin: function(md) {
+        return '<blockquote>\n';
+    },
+
+    end: function(md) {
+        return '</blockquote>\n';
+    },
+
+    leaf: function(md) {},
+
+};
+
 
 // Module exports
 
@@ -164,4 +182,5 @@ module.exports = {
     TitleConverter: TitleConverter,
     ListConverter: ListConverter,
     ListItemConverter: ListItemConverter,
+    BlockquoteConverter: BlockquoteConverter,
 };

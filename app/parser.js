@@ -10,6 +10,7 @@ var mdLineParser = require('./parsers/line_parser.js');
 var mdTitleParser = require('./parsers/title_parser.js');
 var mdListParser = require('./parsers/list_parser.js');
 var mdListItemParser = require('./parsers/listitem_parser.js');
+var mdBlockquoteParser = require('./parsers/blockquote_parser.js');
 
 var MdType = md.MdType;
 var Md = md.Md;
@@ -20,6 +21,7 @@ var LineParser = mdLineParser.LineParser;
 var TitleParser = mdTitleParser.TitleParser;
 var ListParser = mdListParser.ListParser;
 var ListItemParser = mdListItemParser.ListItemParser;
+var BlockquoteParser = mdBlockquoteParser.BlockquoteParser;
 
 
 // Parser object
@@ -78,6 +80,9 @@ Parser.prototype = {
                     break;
                 case MdType.ListItem:
                     p = new ListItemParser(md);
+                    break;
+                case MdType.Blockquote:
+                    p = new BlockquoteParser(md);
                     break;
             }
 

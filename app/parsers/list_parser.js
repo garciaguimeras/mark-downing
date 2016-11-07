@@ -1,5 +1,5 @@
 /*
- * UListParser module
+ * ListParser module
  */
 
 var md = require('./../md.js');

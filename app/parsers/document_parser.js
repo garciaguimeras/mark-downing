@@ -31,13 +31,22 @@ DocumentParser.prototype = {
             return true;
         if (txt.trim().startsWith('- '))
             return true;
+        if (txt.trim().startsWith('+ '))
+            return true;
+        return false;
+    },
+
+    isBlockquoteSeparator: function(txt) {
+        if (txt.trim().startsWith('> '))
+            return true;
         return false;
     },
 
     isSeparator: function(txt) {
         return this.isCodeSeparator(txt) ||
                this.isTitleSeparator(txt) ||
-               this.isListSeparator(txt);
+               this.isListSeparator(txt) ||
+               this.isBlockquoteSeparator(txt);
     },
 
     processRichText: function() {
@@ -126,6 +135,21 @@ DocumentParser.prototype = {
         return md;
     },
 
+    processBlockquote: function() {
+        // find next separator
+        var fPos = this.position;
+        while (fPos < this.lines.length && this.isBlockquoteSeparator(this.lines[fPos]))
+            fPos++;
+
+        // slice the text
+        var slice = this.lines.slice(this.position, fPos);
+        this.position = fPos;
+
+        var md = new Md(MdType.Blockquote);
+        md.content = slice;
+        return md;
+    },
+
     parse: function() {
         var mdArr = [];
         this.position = 0;
@@ -143,6 +167,9 @@ DocumentParser.prototype = {
                 // list
                 else if (this.isListSeparator(line))
                     md = this.processList();
+                // blockquote
+                else if (this.isBlockquoteSeparator(line))
+                    md = this.processBlockquote();
             }
 
             if (md != null)

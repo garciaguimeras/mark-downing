@@ -23,6 +23,8 @@ const MdType = {
     List: 30,
     ListItem: 31,
 
+    Blockquote: 40,
+
     PlainText: 200,
     Code: 300,
 };
